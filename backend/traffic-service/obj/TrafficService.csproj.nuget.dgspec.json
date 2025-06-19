@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/me/Public/DevSecOps Projects/Smart Traffic Routing/SmartRoutePlanner/backend/backend.csproj": {}
+    "/home/me/Public/DevSecOps Projects/Smart Traffic Routing/SmartRoutePlanner/backend/traffic-service/TrafficService.csproj": {}
   },
   "projects": {
-    "/home/me/Public/DevSecOps Projects/Smart Traffic Routing/SmartRoutePlanner/backend/backend.csproj": {
+    "/home/me/Public/DevSecOps Projects/Smart Traffic Routing/SmartRoutePlanner/backend/traffic-service/TrafficService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/me/Public/DevSecOps Projects/Smart Traffic Routing/SmartRoutePlanner/backend/backend.csproj",
-        "projectName": "backend",
-        "projectPath": "/home/me/Public/DevSecOps Projects/Smart Traffic Routing/SmartRoutePlanner/backend/backend.csproj",
+        "projectUniqueName": "/home/me/Public/DevSecOps Projects/Smart Traffic Routing/SmartRoutePlanner/backend/traffic-service/TrafficService.csproj",
+        "projectName": "TrafficService",
+        "projectPath": "/home/me/Public/DevSecOps Projects/Smart Traffic Routing/SmartRoutePlanner/backend/traffic-service/TrafficService.csproj",
         "packagesPath": "/home/me/.nuget/packages/",
-        "outputPath": "/home/me/Public/DevSecOps Projects/Smart Traffic Routing/SmartRoutePlanner/backend/obj/",
+        "outputPath": "/home/me/Public/DevSecOps Projects/Smart Traffic Routing/SmartRoutePlanner/backend/traffic-service/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/me/.nuget/NuGet/NuGet.Config"
