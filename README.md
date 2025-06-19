@@ -4,29 +4,29 @@
 
 ### 1.1 Purpose
 
-The purpose of this document is to define the Software Requirements Specification (SRS), architectural design, structural blueprint, and DevSecOps strategy for the Smart Route Planner, a system that calculates optimal travel routes while simulating live traffic conditions.
+This document outlines a comprehensive Software Requirements Specification (SRS), architectural overview, modular breakdown, and DevSecOps strategy for the **Smart Route Planner** project. The goal of this system is to provide users with optimal travel routes, including real-time traffic simulation and rerouting capabilities. It is intended to serve a wide range of users from daily commuters to logistics firms needing route optimization and live traffic responsiveness.
 
 ### 1.2 Scope
 
-The system is intended for commuters, logistics providers, and fleet managers. It will provide route planning, ETA estimation, and traffic simulation. Key components include:
+The Smart Route Planner system is a **web-based application** composed of three main subsystems:
 
-* A frontend map interface (Angular)
-* A backend API gateway and microservices (.NET Core)
-* PostgreSQL for persistent data storage
-* External routing APIs (Mapbox, OpenRouteService)
+* **Frontend**: Built using Angular, this interface allows users to input destinations, view maps, simulate traffic, and receive optimized routes.
+* **Backend**: A .NET Core microservice-based API system that calculates routes, simulates traffic, authenticates users, and connects with external APIs like Mapbox and OpenRouteService.
+* **Database**: A PostgreSQL relational database for storing user data, route history, traffic simulations, and more.
 
 ### 1.3 Target Audience
 
-* Developers and Engineers
-* DevOps and Security Teams
-* Product Managers
-* Stakeholders
+* **Developers**: Frontend and backend engineers implementing the system
+* **DevOps and Security Teams**: Handling deployment, monitoring, and securing the system
+* **Product Managers**: Overseeing the delivery and alignment with requirements
+* **Stakeholders**: Decision-makers evaluating the system’s success and usage
 
 ### 1.4 Definitions
 
-* **Waypoint**: Intermediate routing location
-* **ETA**: Estimated Time of Arrival
-* **BFF**: Backend for Frontend
+* **Waypoint**: A defined intermediate stop between a source and a destination.
+* **ETA**: Estimated Time of Arrival calculated based on current and predicted traffic conditions.
+* **BFF (Backend-for-Frontend)**: An API tailored specifically for the frontend, reducing over-fetching and under-fetching.
+* **API Gateway**: A central API layer that routes requests to respective microservices.
 
 ---
 
@@ -34,16 +34,16 @@ The system is intended for commuters, logistics providers, and fleet managers. I
 
 ### 2.1 Product Functions
 
-* Input source and destination(s)
-* Fetch and display optimal route with ETA
-* Simulate dynamic traffic conditions
-* Reroute based on delay simulation
+* Allow user input for source, destination, and optional waypoints.
+* Display optimal routes and estimated travel times.
+* Simulate dynamic traffic using time-weighted delays.
+* Display updated ETA and suggest rerouting when delays exceed a threshold.
 
 ### 2.2 User Classes
 
-* End User: Drivers or planners using the app
-* Admin: Optional dashboard access
-* System: Backend services
+* **End Users**: Drivers, planners, or logistic personnel using the web app.
+* **Administrators**: Manage user data and monitor system health.
+* **System Services**: Automated backend services managing routing and traffic.
 
 ---
 
@@ -51,68 +51,72 @@ The system is intended for commuters, logistics providers, and fleet managers. I
 
 ### 3.1 Route Planning
 
-* Input form for locations
-* Integration with routing API
-* Map visualization with polyline and markers
+* Input fields for origin, destination, and waypoints.
+* Connect to routing APIs (Mapbox, ORS).
+* Return routes with encoded polylines and ETAs.
 
 ### 3.2 Traffic Simulation
 
-* Time or random-based traffic weights
-* Dynamic ETA recalculations
-* Visual traffic overlays
+* Time-based random traffic generation.
+* Modify weights on route segments.
+* Update frontend with overlay indicators.
 
-### 3.3 Navigation
+### 3.3 Navigation Module
 
-* Display step-by-step directions
-* Optional rerouting
+* Provide turn-by-turn directions.
+* Offer manual and auto-triggered rerouting.
 
 ### 3.4 APIs
 
-* POST `/api/route` to fetch route
-* GET `/api/traffic` to simulate traffic
+* `POST /api/route`: Calculate and return route details.
+* `GET /api/traffic`: Return simulated traffic data for segments.
+* `POST /api/login`: User authentication.
+* `GET /api/profile`: User data retrieval.
 
 ---
 
 ## 4. Non-Functional Requirements
 
-* Response time < 2 seconds
-* Uptime: 99.5%
-* JWT-based authentication
-* Mobile responsive UI
+* **Performance**: All responses should be under 2 seconds.
+* **Availability**: 99.5% uptime with failover handling.
+* **Security**: Role-based access and JWT authentication.
+* **UI/UX**: Responsive design, accessible via desktop and mobile.
 
 ---
 
 ## 5. Architecture Design
 
-### 5.1 Architecture Style
+### 5.1 Style
 
-* Microservices + API Gateway
-* BFF pattern for frontend
-* RESTful communication
+* **Microservices** for backend logic separation.
+* **BFF** pattern to streamline frontend-backend communication.
+* **REST APIs** for all data transfer.
 
 ### 5.2 Components
 
-* Frontend (Angular + Mapbox)
-* API Gateway (.NET Core Web API)
-* Routing Microservice (.NET Core)
-* Traffic Microservice (.NET Core)
-* PostgreSQL database
-* External APIs (Mapbox/ORS)
+* **Frontend**: Angular 17 with TypeScript and Mapbox integration.
+* **Backend**:
+
+  * API Gateway (.NET Core Web API)
+  * Routing Microservice
+  * Traffic Simulation Microservice
+* **Database**: PostgreSQL with EF Core ORM.
+* **External APIs**: Mapbox and OpenRouteService.
 
 ---
 
 ## 6. Structural Design
 
-### 6.1 Patterns
+### 6.1 Patterns Used
 
-* Repository Pattern (DB abstraction)
-* Strategy Pattern (multiple route providers)
-* Adapter Pattern (normalize external APIs)
-* DTOs for request/response modeling
+* **Repository Pattern**: Abstraction layer over database queries.
+* **Strategy Pattern**: Multiple routing service implementations.
+* **Adapter Pattern**: Unified interface for external API providers.
+* **DTOs**: Data Transfer Objects used between layers for safety.
 
 ### 6.2 Codebase Layout
 
-**Frontend (Angular)**
+#### Frontend
 
 ```
 src/
@@ -124,7 +128,7 @@ src/
     utils/
 ```
 
-**Backend (.NET Core)**
+#### Backend
 
 ```
 /RoutePlanner.API
@@ -137,53 +141,54 @@ src/
   Repositories/
 ```
 
-**Database**
+#### Database
 
-* PostgreSQL schema with tables for Users, Routes, TrafficSimulations
+* Tables: Users, Routes, TrafficSimulations
+* Indexes on route segments for performance
 
 ---
 
 ## 7. Design Principles
 
-* **SOLID** for backend and microservices
-* **DRY**: Avoid code repetition
-* **KISS**: Keep services simple and focused
-* **YAGNI**: Avoid premature overengineering
+* **SOLID Principles**: Promote modular, testable, and maintainable code.
+* **DRY (Don't Repeat Yourself)**: Reuse code via services and shared components.
+* **KISS (Keep It Simple, Stupid)**: Avoid overcomplicating logic.
+* **YAGNI (You Aren't Gonna Need It)**: Avoid speculative features.
 
 ---
 
-## 8. DevSecOps Best Practices
+## 8. DevSecOps Strategy
 
 ### 8.1 Development
 
-* Angular TypeScript best practices
-* .NET Clean Architecture
-* CI Pipelines (GitHub Actions/GitLab CI)
-* Linting (TSLint, StyleCop)
-* Unit + Integration Tests (Karma/Jasmine, xUnit)
+* Linting: TSLint (Angular), StyleCop (.NET)
+* Unit Testing: Karma/Jasmine for frontend, xUnit for backend
+* Integration Testing: Postman or automated API tests
+* Version Control: Git + GitHub
 
 ### 8.2 Security
 
 * Input validation and sanitization
-* Role-based Access Control (RBAC)
-* HTTPS + JWT
-* Secrets managed with environment configs and Vault
+* Role-based access control
+* JWT token validation on backend
+* Secrets managed via environment configs or Vault
 
 ### 8.3 Operations
 
-* Dockerized services (Angular + .NET + PostgreSQL)
-* Helm + Kubernetes for orchestration
-* Prometheus + Grafana for metrics
-* ELK or Loki for logs
-* WebSocket or polling for traffic updates
+* Docker containers for each service
+* Docker Compose for local orchestration
+* Helm + Kubernetes for scalable deployment
+* Monitoring: Prometheus for metrics, Grafana for dashboards
+* Logging: ELK or Loki stack
+* Traffic updates: Polling or WebSockets
 
 ---
 
 ## 9. External Interfaces
 
-* **Mapbox API**: For route and map rendering
-* **OpenRouteService**: For alternative routing
-* **PostgreSQL**: Persistent data layer
+* **Mapbox API**: For map visualization and route calculation
+* **OpenRouteService**: Alternate routing source
+* **PostgreSQL**: Persistent data storage for all entities
 
 ---
 
@@ -191,99 +196,98 @@ src/
 
 ### UC1: Plan Route
 
-1. User inputs source/destination
-2. API gateway routes to routing microservice
-3. Route + ETA returned
+1. User enters source and destination.
+2. Angular frontend sends a request to the API Gateway.
+3. API Gateway forwards to Routing Microservice.
+4. Route and ETA returned and displayed.
 
 ### UC2: Simulate Traffic
 
-1. Periodic simulation adjusts segment weights
-2. ETA updated
-3. UI displays red/yellow/green traffic zones
+1. Traffic microservice updates segment weights.
+2. Updated ETA calculated.
+3. Frontend shows affected routes.
 
 ### UC3: Reroute
 
-1. User triggers reroute
-2. Updated optimal route provided
+1. User clicks 'Reroute'.
+2. System evaluates alternative.
+3. Returns optimized path.
 
 ---
 
-## 11. Development Plan
-# Smart Route Planner with Live Traffic Simulation
+## 11. Development Plan (Module-by-Module)
 
-### Hour 1: Environment Setup
+### ✅ Hour 1: Environment Setup
 
-* Clone and scaffold Angular + .NET project
-* Setup PostgreSQL instance (local/docker)
-* Initialize Git repo and configure VS Code/IDE
+* Scaffold Angular + .NET projects
+* Setup PostgreSQL (Docker or local)
+* Create base folder structure and Git repo
 
-### Hour 2: Backend API Foundation (.NET Core)
+### ✅ Hour 2: Login Module (Frontend)
 
-* Setup API Gateway and basic routing controller
-* Define DTOs and services structure
-* Connect to PostgreSQL using Entity Framework
+* Design login form (Angular Forms)
+* Create AuthService with dummy token logic
+* Add route guards and token storage
 
-### Hour 3: Frontend Angular Setup
+### ✅ Hour 3: Login Module (Backend)
 
-* Initialize Angular project
-* Setup basic routing and material theme
-* Add Mapbox map component with input fields
+* Create `/api/login` endpoint
+* Use dummy user validation + return JWT
+* Add middleware for JWT validation
 
-### Hour 4: API Endpoint for Route Planning
+### ✅ Hour 4: Route Planning (Frontend)
 
-* Implement POST `/api/route` in backend
-* Integrate external Mapbox routing API
-* Return route polyline and ETA
+* Add form for location input
+* Integrate Mapbox map display
+* Display user inputs as waypoints
 
-### Hour 5: Angular Route Planning UI
+### ✅ Hour 5: Route Planning (Backend)
 
-* Connect Angular form to backend API
-* Parse and display polyline on Mapbox map
-* Show ETA and route markers
+* Create `/api/route` with external API call to Mapbox
+* Return polyline, waypoints, ETA
 
-### Hour 6: Traffic Simulation Service
+### ✅ Hour 6: Display Route + ETA (Frontend)
 
-* Build `.NET` microservice to simulate traffic delays
-* Implement GET `/api/traffic` returning affected segments and weights
+* Parse route response
+* Draw polyline and markers on map
+* Show travel time and distance
 
-### Hour 7: Angular Traffic Layer + Re-routing
+### ✅ Hour 7: Traffic Simulation (Backend)
 
-* Overlay traffic data on map (color-coded)
-* Trigger rerouting when traffic threshold exceeded
-* Re-display updated route and ETA
+* Create microservice to randomize traffic weights
+* `GET /api/traffic` to return traffic severity per segment
 
-### Hour 8: Security + JWT Auth (Basic)
+### ✅ Hour 8: Traffic Overlay + Rerouting (Frontend)
 
-* Add JWT middleware in backend
-* Protect routing and traffic endpoints
-* Setup login stub on Angular side
+* Overlay traffic colors (green/yellow/red)
+* Add reroute button
+* Call route endpoint again with updated weights
 
-### Hour 9: Dockerization & Testing
+### ✅ Hour 9: Security Enhancements
 
-* Write Dockerfiles for Angular, .NET, PostgreSQL
-* Setup Docker Compose for local orchestration
-* Test entire flow locally (Route > Traffic > Update)
+* Validate JWT in route/traffic endpoints
+* Add RBAC middleware (User vs Admin roles)
+* Use HTTPS-only transport (local + prod)
 
-### Hour 10: DevOps + Monitoring Prep
+### ✅ Hour 10: Dockerization
 
-* Add CI workflow in GitHub Actions
-* Add Prometheus metrics endpoint to .NET
-* Setup basic Grafana dashboard (optional)
+* Create Dockerfiles for Angular + .NET + PostgreSQL
+* Build docker-compose.yml
+* Test orchestration locally
 
-### Hour 11: Final Bug Fixes + Polish
+### ✅ Hour 11: Monitoring & Logging
 
-* Fix any frontend/backend integration issues
-* Clean up UI spacing, responsiveness
-* Test rerouting logic, error handling
+* Add Prometheus exporter to backend
+* Create Grafana dashboards
+* Set up centralized logging with Loki
 
-### Hour 12: Documentation & Delivery
+### ✅ Hour 12: Final Testing + Docs
 
-* Finalize README and usage guide
+* Run all test cases (manual + automated)
 * Export Swagger/OpenAPI JSON
-* Push code to GitHub and prepare for handoff/demo
+* Finalize README with setup instructions
 
 ---
-
 
 ## 13. Summary Table
 
@@ -293,4 +297,4 @@ src/
 | Structure    | Layered and modular with PostgreSQL |
 | Design       | SOLID, DRY, YAGNI                   |
 | DevSecOps    | CI/CD, Auth, Monitoring, Docker     |
-| Dev Plan     | 6-week milestone roadmap            |
+| Dev Plan     | Modular, integrated, user-centric   |

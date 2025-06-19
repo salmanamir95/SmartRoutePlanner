@@ -7,10 +7,48 @@ services:
       dockerfile: Dockerfile
     ports:
       - "4200:80"
+    depends_on:
+      - api-gateway
 
-  backend:
+  api-gateway:
     build:
-      context: ./backend
+      context: ./backend/api-gateway
       dockerfile: Dockerfile
     ports:
       - "5000:80"
+    depends_on:
+      - routing-service
+      - traffic-service
+      - db
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - DB_HOST=db
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+
+  routing-service:
+    build:
+      context: ./backend/routing-service
+      dockerfile: Dockerfile
+    environment:
+      - MAPBOX_KEY=${MAPBOX_KEY}
+
+  traffic-service:
+    build:
+      context: ./backend/traffic-service
+      dockerfile: Dockerfile
+
+  db:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_DB=routeplanner
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+
+volumes:
+  pgdata:
