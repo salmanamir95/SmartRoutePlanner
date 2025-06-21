@@ -8,7 +8,5 @@ export const routes: Routes = [
   {
     path: '**',
     component: ErrorPopupComponent,
-    // Optional static fallback in case query param is missing
-    data: { fallbackMessage: 'Invalid page URL' }
-  }                    // Redirect unknown paths to /login
-];
+    data: { message: 'Invalid page URL' }
+}];

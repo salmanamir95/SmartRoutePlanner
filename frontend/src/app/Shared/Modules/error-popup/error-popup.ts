@@ -16,15 +16,16 @@ export class ErrorPopupComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // Check if route has data
-    const routedMsg = this.route.snapshot.queryParamMap.get('message');
-    if (routedMsg) {
-      this.message = routedMsg;
-    }
-
-    // Optional auto-close
-    setTimeout(() => (this.show = false), 5000);
+  // ✅ Read the message from route `data` (not query params)
+  const routedMsg = this.route.snapshot.data['message'];
+  if (routedMsg) {
+    this.message = routedMsg;
   }
+
+  // Optional auto-close
+  setTimeout(() => (this.show = false), 5000);
+}
+
 
   closePopup() {
     this.show = false;
