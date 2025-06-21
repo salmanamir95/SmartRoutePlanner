@@ -1,0 +1,8 @@
+/* Tailwind plugin-like effect
+    @keyframes inputGlow {
+      0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); }
+      100% { box-shadow: 0 0 10px 5px rgba(59, 130, 246, 0.5); }
+    }
+    .glow:focus {
+      animation: inputGlow 0.3s forwards;
+    } */
