@@ -1,35 +1,35 @@
 <!-- login-component.html -->
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-indigo-900 to-black p-4">
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-dark via-gray-900 to-black p-4 font-sans">
   <div
     id="loginCard"
-    class="bg-white/10 backdrop-blur-md border border-white/20 shadow-xl rounded-2xl p-8 w-full max-w-sm text-white transition duration-300 dark:bg-black/20"
+    class="bg-dark/60 backdrop-blur-xl border border-white/20 shadow-glass rounded-2xl p-8 w-full max-w-sm text-white transition duration-300"
   >
-    <h2 class="text-3xl font-bold mb-6 text-center">Welcome Back</h2>
+    <h2 class="text-3xl font-bold mb-6 text-center text-primary">Welcome</h2>
 
     <form class="space-y-5">
       <div>
-        <label for="email" class="block text-sm mb-1">Email</label>
+        <label for="email" class="block text-sm mb-1 text-light">Email</label>
         <input
           type="email"
           id="email"
-          class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg placeholder-gray-300 text-white focus:outline-none"
+          class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-primary"
           placeholder="you@example.com"
         />
       </div>
 
       <div>
-        <label for="password" class="block text-sm mb-1">Password</label>
+        <label for="password" class="block text-sm mb-1 text-light">Password</label>
         <input
           type="password"
           id="password"
-          class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg placeholder-gray-300 text-white focus:outline-none"
+          class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-primary"
           placeholder="••••••••"
         />
       </div>
 
       <button
         type="submit"
-        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-xl transition duration-200"
+        class="w-full bg-primary hover:bg-blue-700 text-white font-semibold py-2 rounded-xl transition duration-200"
       >
         Sign In
       </button>
@@ -37,7 +37,16 @@
 
     <p class="mt-6 text-center text-sm text-gray-300">
       New here?
-      <a href="#" class="text-blue-400 hover:underline">Create account</a>
+      <a href="#" class="text-secondary hover:underline">Create account</a>
     </p>
   </div>
+<!-- 
+  <button
+  type="button"
+  (click)="replayAnimation()"
+  class="mt-4 m-4 p-4 bg-secondary hover:bg-green-500 text-white font-semibold py-2 rounded-xl transition duration-200"
+>
+  Replay Animation
+</button> -->
+
 </div>

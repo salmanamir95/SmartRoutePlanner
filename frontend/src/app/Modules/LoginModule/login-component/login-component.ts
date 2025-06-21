@@ -11,23 +11,70 @@ export class LoginComponent implements AfterViewInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      gsap.from('#loginCard', {
-        duration: 1.2,
+  if (isPlatformBrowser(this.platformId)) {
+    gsap.fromTo(
+      '#loginCard',
+      {
         opacity: 0,
-        scale: 0.8,
-        rotationX: -70,
-        rotationY: -30,
+        scale: 0.9,
+        y: 50,
+        rotateX: -15,
         transformOrigin: 'center center',
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        rotateX: 0,
+        duration: 1.2,
         ease: 'power3.out',
-      });
+      }
+    );
 
-      gsap.to('#loginCard', {
-        delay: 1.2,
-        scale: 1.05,
-        ease: 'bounce.out',
-        duration: 0.6,
-      });
-    }
+    gsap.to('#loginCard', {
+      delay: 1.2,
+      scale: 1.03,
+      yoyo: true,
+      repeat: 1,
+      ease: 'sine.inOut',
+      duration: 0.4,
+    });
   }
+
+  
+}
+
+replayAnimation(): void {
+  if (isPlatformBrowser(this.platformId)) {
+    gsap.fromTo(
+      '#loginCard',
+      {
+        opacity: 0,
+        scale: 0.9,
+        y: 50,
+        rotateX: -15,
+        transformOrigin: 'center center',
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        rotateX: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+      }
+    );
+
+    gsap.to('#loginCard', {
+      delay: 1.2,
+      scale: 1.03,
+      yoyo: true,
+      repeat: 1,
+      ease: 'sine.inOut',
+      duration: 0.4,
+    });
+  }
+}
+
+
 }
