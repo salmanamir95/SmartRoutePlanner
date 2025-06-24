@@ -1,52 +1,44 @@
-<!-- login-component.html -->
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-dark via-gray-900 to-black p-4 font-sans">
-  <div
-    id="loginCard"
-    class="bg-dark/60 backdrop-blur-xl border border-white/20 shadow-glass rounded-2xl p-8 w-full max-w-sm text-white transition duration-300"
-  >
-    <h2 class="text-3xl font-bold mb-6 text-center text-primary">Welcome</h2>
-
-    <form class="space-y-5">
-      <div>
-        <label for="email" class="block text-sm mb-1 text-light">Email</label>
+<div class="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900 flex items-center justify-center">
+  <div id="loginCard" class="bg-gradient-to-br from-gray-800/90 to-blue-900/90 backdrop-blur-lg p-8 rounded-2xl shadow-2xl w-full max-w-md border border-white/10 transform-gpu">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-white tracking-tight">Welcome Back</h2>
+      <p class="text-gray-300 text-sm mt-2">Sign in to your account</p>
+    </div>
+    <div class="space-y-6">
+      <div class="form-field">
+        <label for="email" class="block text-sm font-medium text-gray-200 mb-2">Email</label>
         <input
           type="email"
           id="email"
-          class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-primary"
+          class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-white/10 transform-gpu"
           placeholder="you@example.com"
         />
       </div>
-
-      <div>
-        <label for="password" class="block text-sm mb-1 text-light">Password</label>
+      <div class="form-field">
+        <label for="password" class="block text-sm font-medium text-gray-200 mb-2">Password</label>
         <input
           type="password"
           id="password"
-          class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-primary"
+          class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-white/10 transform-gpu"
           placeholder="••••••••"
         />
       </div>
-
+      <div class="form-field">
+        <button
+          type="button"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-all duration-300 transform-gpu hover:scale-105 focus:ring-4 focus:ring-blue-500/50"
+        >
+          Sign In
+        </button>
+      </div>
+    </div>
+    <div class="mt-6 text-center">
       <button
-        type="submit"
-        class="w-full bg-primary hover:bg-blue-700 text-white font-semibold py-2 rounded-xl transition duration-200"
+        (click)="replayAnimation()"
+        class="text-blue-400 hover:text-blue-300 text-sm transition-colors duration-200"
       >
-        Sign In
+        Replay Animation
       </button>
-    </form>
-
-    <p class="mt-6 text-center text-sm text-gray-300">
-      New here?
-      <a href="#" class="text-secondary hover:underline">Create account</a>
-    </p>
+    </div>
   </div>
-<!-- 
-  <button
-  type="button"
-  (click)="replayAnimation()"
-  class="mt-4 m-4 p-4 bg-secondary hover:bg-green-500 text-white font-semibold py-2 rounded-xl transition duration-200"
->
-  Replay Animation
-</button> -->
-
 </div>
